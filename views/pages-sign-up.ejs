@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="../public/img/icons/icon-48x48.png" />
+	<title>註冊|農務物聯網智慧系統</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<script src="/node_modules/jquery/dist/jquery.js"></script>
+	<link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+	<script src="/node_modules/bootstrap/dist/js/bootstrap.esm.js"></script>
+	<link href="/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+	<link href="/app.css" rel="stylesheet">
+</head>
+
+<body>
+	<main class="d-flex w-100">
+		<div class="container d-flex flex-column">
+			<div class="row vh-100">
+				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+					<div class="d-table-cell align-middle">
+						<div class="text-center mt-4">
+							<h1 class="h2">註冊</h1>
+							<p class="lead">
+								開始享受屬於您的農務物聯網智慧系統吧
+							</p>
+						</div>
+
+						<div class="card">
+							<div class="card-body">
+								<div class="m-sm-4">
+									<div class="mb-4">
+										<a href="/login" class="btn btn-insert btn-primary"><i class="align-middle me-2 bi bi-box-arrow-in-left">返回</i></a>
+									</div>					
+									<div id="check_div" class="" role="alert">
+
+									</div>				
+									<form id="signup_form" class="form-group">
+										<div class="mb-3">
+											<label class="form-label">帳號<small class="text-danger">*</small></label>
+											<input class="form-control form-control-lg" id="username" type="text" name="username" placeholder="請輸入5~16字元之間" required />
+											<small class="text-danger" id="username_wrong"></small>
+										</div>
+										<div class="mb-3">
+											<label class="form-label">姓名<small class="text-danger">*</small></label>
+											<input class="form-control form-control-lg" id="real_name" type="text" name="name" placeholder="請至少輸入3個字元" required />
+											<small class="text-danger" id="name_wrong"></small>
+										</div>
+										<div class="mb-3">
+											<label class="form-label">信箱<small class="text-danger">*</small></label>
+											<input class="form-control form-control-lg" id="email" type="email" name="email" placeholder="請輸入正確信箱格式 ex.test@gmail.com" required />
+											<small class="text-danger" id="email_wrong"></small>
+										</div>
+										<div class="mb-3">
+											<label class="form-label">手機號碼<small class="text-danger">*</small></label>
+											<input class="form-control form-control-lg" id="phone" type="tel" name="phone" placeholder="目前只提供台灣門號 ex.0912345678" pattern="[0-9]{10}" required />
+											<small class="text-danger" id="phone_wrong"></small>
+										</div>
+										<div class="mb-3">
+											<label class="form-label">聯絡地址<small class="text-danger">*</small></label>
+											<input class="form-control form-control-lg" id="address" type="text" name="address" placeholder="請填寫地址" required />
+											<small class="text-danger" id="address_wrong"></small>
+										</div>
+										<div class="mb-3">
+											<label class="form-label">密碼<small class="text-danger">*</small></label>
+											<div class="input-group input-group-lg">
+												<input class="form-control" id="password" type="password" name="password" placeholder="請輸入3~16字元之間" required />
+												<i class="input-group-text bi bi-eye-fill" id="password-show"></i>
+											</div>
+											<small class="text-danger" id="password_wrong"></small>
+										</div>
+										<div class="mb-3">
+											<label class="form-label">確認密碼<small class="text-danger">*</small></label>
+											<input class="form-control form-control-lg" id="password_check" type="password" name="check_password" placeholder="請與密碼輸入相同" required />
+										</div>
+										<div class="text-center mt-3">
+											<input id="signup_submit" class="btn btn-lg btn-primary" type="submit" value="註冊" name="註冊" />
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	
+	<script>
+		//是否顯示密碼內容
+		$(()=>{
+			$('#password-show').on('click',()=>{
+				var x=$('#password').attr('type')
+				if(x==='password'){
+					$('#password').attr('type','text');
+					$('#ppassword-show').removeClass('bi-eye-fill')
+					$('#password-show').addClass('bi-eye-slash-fill')
+				}else{
+					$('#password').attr('type','password');
+					$('#password-show').removeClass('bi-eye-slash-fill')
+					$('#password-show').addClass('bi-eye-fill')
+				}
+			})
+		})
+	</script>
+	<script src="/signup_process.js"></script>
+
+</body>
+
+</html>

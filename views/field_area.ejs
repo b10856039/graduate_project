@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="../public/img/icons/icon-48x48.png" />
+
+
+
+	<title>農務物聯網智慧系統</title>
+
+
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<script src="/node_modules/jquery/dist/jquery.js"></script>
+	<link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+	<script src="/node_modules/bootstrap/dist/js/bootstrap.esm.js"></script>
+	<link href="/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+	<link href="/app.css" rel="stylesheet">
+</head>
+
+
+<body>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar js-sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="/">
+          			<span class="align-middle">農務物聯網智慧系統</span>
+        		</a>
+
+				<ul class="sidebar-nav">
+					<li class="sidebar-header">環境狀態功能</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/">
+              				<i class="align-middle bi bi-bar-chart"></i> <span class="align-middle">環境即時狀態</span>
+						</a>
+					</li>
+					<li class="sidebar-header">辨識功能</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/disease_identify">
+              				<i class="align-middle bi bi-camera-fill"></i> <span class="align-middle">作物疾病檢測</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/quality_identify">
+              				<i class="align-middle bi bi-camera-fill"></i> <span class="align-middle">作物品質檢測</span>
+						</a>
+					</li>
+					<li class="sidebar-header">裝置管理</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/sensor">
+              				<i class="align-middle bi bi-hdd"></i> <span class="align-middle">感測器管理</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/sensor_maintain">
+              				<i class="align-middle  bi bi-keyboard"></i> <span class="align-middle">感測器維修紀錄</span>
+            			</a>
+					</li>
+					<li class="sidebar-header">農地管理</li>
+					<li class="sidebar-item  active">
+						<a class="sidebar-link" href="/field">
+              				<i class="align-middle bi bi-grid"></i> <span class="align-middle">田區管理</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/plant_management">
+              				<i class="align-middle bi bi-clipboard"></i> <span class="align-middle">作物管理</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/grow_record">
+              				<i class="align-middle bi bi-book"></i> <span class="align-middle">種植日誌</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/crops_record">
+              				<i class="align-middle bi bi-box2"></i> <span class="align-middle">收成紀錄</span>
+            			</a>
+					</li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/prescriptionsCustomer">
+                            <i class="align-middle bi bi-card-list"></i> <span class="align-middle">藥單</span>
+                        </a>
+                    </li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle js-sidebar-toggle">
+          			<i class="hamburger align-self-center"></i>
+        		</a>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">						
+						<li class="nav-item dropdown"> 
+							<a class="nav-link dropdown-toggle d-sm-inline-block" href="#" data-bs-toggle="dropdown" id="dropdown_user">
+								<span class="text-dark"><%=user%></span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-end" id="test" aria-labelledby="dropdown_user">
+								<a class="dropdown-item" href='/profile/<%=user%>'><i class="align-middle me-1 bi bi-person"></i>個人資料設定</a>
+								<a class="dropdown-item" href="https://drive.google.com/file/d/1XRZwh8wjgtSz2lVqCPy5fK4IRXG2fqqN/view?usp=share_link">使用說明書</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="/logout">登出</a>
+							</div>
+						</li>
+					</ul>		
+				</div>
+			</nav>
+
+			<main class="content">				
+				<div class="row">
+					<div class="card flex-fill">
+						<div class="card-header">
+							<h5 class="card-title mb-0">田區管理</h5>
+						</div>
+						<div class="row justify-content-between">
+							<div class="col-md-4 mb-2">
+								<button id="field_insert" class="btn btn-success text-right" data-bs-toggle="modal" data-bs-target="#insert_field">新增田區</button>
+							</div>
+							<div class="col-md-10">
+								<form action="/field" method="GET">
+									<div class="input-group flex-group mb-3 w-75">
+										<input type="text" id="search_bar" name="search" class="form-control">
+										<input id="search_submit" type="submit" value="查詢" class="btn btn-insert btn-primary">
+									</div>
+
+								</form>
+							</div>
+
+						</div>
+						<div class="table-responsive">
+							<table class="table table-hover my-0 text-center" data-toggle="table">
+								<thead>
+									<tr class="text-nowrap">
+										<th class="d-xl-table-cell">名稱</th>
+										<th class="d-xl-table-cell">API-key</th>
+										<th class="d-xl-table-cell text-center">設定</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% for(let i=0;i<data.length;i++){%>
+										<tr class="text-nowrap">
+											<td class="fieldName"><%=data[i].fieldName%></td>
+											<td class="ApiKey"><%=data[i].apikey%></td>
+											<td class="row"><a class="col btn btn-secondary btn-sm btn-space update bi bi-gear-fill" data-bs-toggle="modal" data-bs-target="#update_field" upd_data_ObjId=<%=data[i]._id%> upd_data_name="<%=data[i].fieldName%>" apikey='<%=data[i].apikey%>' upd_latitude="<%=data[i].latitude%>"  upd_longitude="<%=data[i].longitude%>"></a><a class="col btn btn-danger btn-sm btn-space delete bi bi-x-lg" del_data_ObjId=<%=data[i]._id%>></a></td>
+										</tr>
+									<%}%>
+								</tbody>
+							</table>
+						</div>
+					</div>					
+				</div>
+				<div class="d-flex justify-content-center <%=page_show%>">
+					<div>
+						<ul class="pagination" id="pageination">
+							<li <%if(pageNumber<=1){%>class='page-item disabled'<%}else{%>class='page-item'<%}%>>
+								<a class="page-link" href="/field?page=<%=parseInt(pageNumber)-1%>">前一頁</a>
+							</li>				
+							<% for(let p=1;p<=pages;p++){%>							
+								<li class="page-item">
+									<a class="page-link" href="/field?page=<%=p%>" id="page_num"><%=p%></a>
+								</li>
+							<%}%>
+							<li <%if(pageNumber>=pages){%>class='page-item disabled'<%}else{%>class='page-item'<%}%>>
+								<a class="page-link" href="/field?page=<%=parseInt(pageNumber)+1%>">下一頁</a>
+							</li>
+						</ul>
+					</div>
+				</div>						
+			</main>
+				
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="text-center">
+						<p class="mb-0">
+							<a class="text-muted" target="_blank"><strong>農務物聯網智慧系統</strong></a> &copy;
+						</p>
+					</div>
+				</div>
+			</footer>
+
+			<div class="modal fade" id="insert_field" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <h5 class="modal-title" id="exampleModalLabel">輸入要新增的田區</h5>
+					  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+					  <form id='insert_form'>
+						<div class="form-group mb-2">
+							<div class="mb-2">
+								<label>田區名稱<small class="text-danger">*</small></label>
+								<input id="insert_fieldName" type="text" class="form-control">
+							</div>							
+							<div class="row mb-2">
+								<label class="mb-1">位置座標<small class="text-danger">*</small></label>											
+								<div class="col">									
+									<label for="insert_latitude">緯度</label><input type=text id="insert_latitude" class='form-control'>
+								</div>
+								<div class="col">									
+									<label for="insert_longitude">經度</label><input type=text id="insert_longitude" class='form-control'>
+								</div>
+								<small class="mt-2"> 可使用Google Map查詢地點座標</small>	
+							</div>
+						</div>	
+					  </form>
+					</div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="insert_close">取消</button>
+					  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="insert_submit">新增</button>
+					</div>
+				  </div>
+				</div>
+			</div>
+
+
+			<div class="modal fade" id="update_field" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+
+					<div class="modal-content">
+						<div class="modal-header w-100">
+							<div class="row m-0 w-100">
+								<div class="col-md-12 mb-3 d-block d-flex justify-content-between">
+									<h3 class="modal-title" id="exampleModalLabel">設定界面</h3>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="col-md-12">
+									<ul class="nav nav-tabs" id="myTab" role="tablist">
+										<li class="nav-item" role="presentation">
+											<a class="nav-link active" id="show-tab" data-bs-toggle="tab" data-bs-target="#tab-content-show" role="tab" aria-controls="tab-content-show" aria-selected="true">資訊</a>
+										</li>
+										<li class="nav-item" role="presentation">
+											<a class="nav-link" id="map-tab" data-bs-toggle="tab" data-bs-target="#tab-content-map" role="tab" aria-controls="tab-content-map" aria-selected="false">位置顯示</a>
+										</li>
+										<li class="nav-item" role="presentation">
+											<a class="nav-link" id="setting-tab" data-bs-toggle="tab" data-bs-target="#tab-content-setting" role="tab" aria-controls="tab-content-setting" aria-selected="false">設定</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="modal-body">
+							<div class="tab-content">
+								<div id="tab-content-show" class="tab-pane fade show active" role="tabpanel" aria-labelledby="show-tab">
+									<div class="form-group mb-2">
+										<label>ID</label>
+										<input id="dialog_ID_show" type="text" class="form-control" readonly>
+									</div>
+									<div class="form-group mb-2">
+										<label>田區名稱</label>							
+										<input id="dialog_fieldName_show" type="text" class="form-control" readonly>
+									</div>
+									<div class="form-group mb-2">
+										<label>API-KEY</label>							
+										<input id="dialog_API-KEY" type="text" class="form-control" readonly>
+									</div>
+									<div class="row mb-2">
+										<label>位置座標</label>
+										<div class="col">									
+											<label>緯度</label>
+											<input type=text id="dialog_latitude" class='form-control' readonly>
+										</div>
+										<div class="col">									
+											<label>經度</label>
+											<input type=text id="dialog_longitude" class='form-control' readonly>
+										</div>
+									</div>
+								</div>
+								<div id="tab-content-map" class="tab-pane fade" role="tabpanel" aria-labelledby="map-tab">
+									<div id="map" style="height:400px; width:100%;"></div>
+								</div>
+								<div id="tab-content-setting" class="tab-pane fade" role="tabpanel" aria-labelledby="setting-tab">
+									<div>
+										<form id='update_form'>
+											<div class="form-group mb-2">
+												<div class="mb-2">
+													<label>田區名稱<small class="text-danger">*</small></label>
+													<input id="update_fieldName" type="text" class="form-control">
+												</div>
+												<div class="row mb-2">
+													<label class="mb-1">位置座標<small class="text-danger">*</small></label>
+													<div class="col">									
+														<label>緯度</label><input type=text id="update_latitude" class='form-control'>
+													</div>
+													<div class="col">									
+														<label>經度</label><input type=text id="update_longitude" class='form-control'>
+													</div>
+													<small class="mt-2"> 可使用Google Map查詢地點座標</small>	
+												</div>												
+											</div>
+											
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="update_close">取消</button>
+										<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="update_submit">修改</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade" id="confirm_Alert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <h5 class="modal-title" id="exampleModalLabel">執行此動作會刪除相關的資料，是否要執行刪除?</h5>
+					  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">取消</button>
+					  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="delete_submit">確定</button>
+					</div>
+				  </div>
+				</div>
+			</div>
+		
+		
+			<div class="modal fade" id="AlertMsg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <h5 class="modal-title" id="exampleModalLabel">訊息通知</h5>
+					  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p id="Alert_msg"></p>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="isAuthenticated_close">確定</button>
+					</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<script src="/app.js"></script>
+	<script src="/field_process.js"></script>
+	<script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+</body>
+
+</html>

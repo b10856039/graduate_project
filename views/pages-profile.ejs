@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="../public/img/icons/icon-48x48.png" />
+
+
+
+	<title>農務物聯網智慧系統</title>
+
+	
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<script src="/node_modules/jquery/dist/jquery.js"></script>
+	<link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+	<script src="/node_modules/bootstrap/dist/js/bootstrap.esm.js"></script>
+	<link href="/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+	<link href="/app.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar js-sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="/">
+          			<span class="align-middle">農務物聯網智慧系統</span>
+        		</a>
+
+				<ul class="sidebar-nav">
+					<li class="sidebar-header">環境狀態功能</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/">
+              				<i class="align-middle bi bi-bar-chart"></i> <span class="align-middle">環境即時狀態</span>
+						</a>
+					</li>
+					<li class="sidebar-header">辨識功能</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/disease_identify">
+              				<i class="align-middle bi bi-camera-fill"></i> <span class="align-middle">作物疾病檢測</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/quality_identify">
+              				<i class="align-middle bi bi-camera-fill"></i> <span class="align-middle">作物品質檢測</span>
+						</a>
+					</li>
+					<li class="sidebar-header">裝置管理</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/sensor">
+              				<i class="align-middle bi bi-hdd"></i> <span class="align-middle">感測器管理</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/sensor_maintain">
+              				<i class="align-middle  bi bi-keyboard"></i> <span class="align-middle">感測器維修紀錄</span>
+            			</a>
+					</li>
+					<li class="sidebar-header">農地管理</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/field">
+              				<i class="align-middle bi bi-grid"></i> <span class="align-middle">田區管理</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/plant_management">
+              				<i class="align-middle bi bi-clipboard"></i> <span class="align-middle">作物管理</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/grow_record">
+              				<i class="align-middle bi bi-book"></i> <span class="align-middle">種植日誌</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/crops_record">
+              				<i class="align-middle bi bi-box2"></i> <span class="align-middle">收成紀錄</span>
+            			</a>
+					</li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/prescriptionsCustomer">
+                            <i class="align-middle bi bi-card-list"></i> <span class="align-middle">藥單</span>
+                        </a>
+                    </li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle js-sidebar-toggle">
+          			<i class="hamburger align-self-center"></i>
+        		</a>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">
+						
+						<li class="nav-item dropdown"> 
+							<a class="nav-link dropdown-toggle d-sm-inline-block" href="#" data-bs-toggle="dropdown" id="dropdown_user">
+								<span class="text-dark" id="Username"><%=user%></span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-end" id="test" aria-labelledby="dropdown_user">
+								<a class="dropdown-item" href='/profile/<%=user%>'><i class="align-middle me-1 bi bi-person"></i>個人資料設定</a>
+								<a class="dropdown-item" href="https://drive.google.com/file/d/1XRZwh8wjgtSz2lVqCPy5fK4IRXG2fqqN/view?usp=share_link">使用說明書</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="/logout">登出</a>
+							</div>
+						</li>
+					</ul>		
+				</div>
+			</nav>
+
+			<main class="content">
+				<div class="container-fluid">
+
+					<div class="mb-3">
+						<h1 class="h2 d-inline align-middle">基本資料設定</h1>						
+					</div>
+							<div class="card">
+								<div class="card-body">
+									<div>										
+										<h4  class="d-flex flex-row">個人資料<button id="personal_setting" class="btn btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#password_isAuthenticated">編輯</button></h4>										
+									</div>		
+									<div class="bg-light">							
+											<div id="setting_show" class=" item-card management_guild-inline overflow-auto">
+												<div class="d-flex flex-row">
+													<p class="p-2 fs-6 p-label text-nowrap">帳號：</p>
+													<p class='p-2 fs-6'><%=personal_data[0].username%></p>
+												</div>
+												<div class="d-flex flex-row">
+													<p class='p-2 fs-6 p-label text-nowrap'>姓名：</p>
+													<p class='p-2 fs-6'><%=personal_data[0].name%></p>
+												</div>
+												<div class="d-flex flex-row">
+													<p class='p-2 fs-6 text-nowrap'>信箱：</p>
+													<p class='p-2 fs-6'><%=personal_data[0].email%></p>
+												</div>
+												<div class="d-flex flex-row">
+													<p class='p-2 fs-6 text-nowrap'>電話：</p>
+													<p class='p-2 fs-6'><%=personal_data[0].phone%></p>
+												</div>
+												<div class="d-flex flex-row">
+													<p class='p-2 fs-6 text-nowrap'>聯絡地址：</p>
+													<p class='p-2 fs-6'><%=personal_data[0].address%></p>
+												</div>
+											</div>
+											<div id="setting_process" class="item-card management_guild-inline d-none">
+												<form class="form-group">
+													<div class="d-flex flex-row">
+														<p class="p-2 text-nowrap">用戶：</p>
+														<p class='p-2'><%=personal_data[0].username%></p>														
+													</div>
+													<div class="mb-3">
+														<div class="d-inline-flex align-items-center">
+															<label for="name_setting" class="form-label p-2 text-nowrap" >姓名：</label>
+															<div class="col-sm">
+																<input type="text" id="name_setting" class="form-control" value=<%=personal_data[0].name%>>															
+															</div>															
+														</div>
+														<small>請至少輸入3個字元</small>
+													</div>
+													<div class="mb-3">
+														<div class="d-inline-flex align-items-center">
+															<label for="email_setting" class="form-label p-2 text-nowrap">信箱：</label>
+															<div class="col-sm">
+																<input type="text" id="email_setting" class="form-control" value=<%=personal_data[0].email%>>
+															</div>
+														</div>
+														<small>請輸入正確信箱格式</small>				
+
+													</div>
+													<div class="mb-3">
+														<div class="d-inline-flex align-items-center">
+															<label for="phone_setting" class="form-label p-2 text-nowrap">電話：</label>
+															<div class="col-sm">
+																<input type="text" id="phone_setting" class="form-control" value=<%=personal_data[0].phone%>>
+															</div>
+														</div>
+
+														<small>請輸入正確手機號碼格式</small>																												
+													
+													</div>
+													<div class="mb-3">
+														<div class="d-inline-flex align-items-center">
+															<label for="phone_setting" class="form-label p-2 text-nowrap">聯絡地址：</label>
+															<div class="col-sm">
+																<input type="text" id="address_setting" class="form-control" value=<%=personal_data[0].address%>>
+															</div>
+														</div>
+
+														<small>請輸入正確住址</small>																												
+													
+													</div>
+													<div class="d-flex flex-row">
+														<button type="button" id="setting_submit" class="btn btn-insert btn-primary">更改</button>
+													</div>
+												</form>
+
+											</div>
+									</div>							
+								</div>
+								<div class="card-body">
+									<div class="mb-4">
+										<h4>環境異常通知功能</h4>
+									</div>
+									<div class="row">
+										<div class="col">
+											<img src="/img/icons/LINE_icon-48x48.png">
+											<%if(showLineInsert==false){ %>
+												<button type="button" class="btn btn-primary ms-auto text-nowrap" id="Linefunc" data-bs-toggle="modal" data-bs-target="#LineNotify_popup">連接Line Notify</button>
+											<%}else{%>
+												<button type="button" class="btn btn-danger bi bi-x text-nowrap" id="LineDel" data-bs-toggle="modal" data-bs-target="#Line_Del">解除連接</button>
+											<%}%>
+										</div>
+										<div class="col">
+											<img src="/img/icons/email_icon.png">
+											<%if(personal_data[0].ActivateEmailNotify==false){ %>
+												<button type="button" class="btn btn-primary ms-auto text-nowrap" id="Emailfunc" data-bs-toggle="modal" data-bs-target="#EmailNotify_popup">連接Email</button>
+											<%}else{%>
+												<button type="button" class="btn btn-danger bi bi-x text-nowrap" id="EmailDel" data-bs-toggle="modal" data-bs-target="#Email_Del">解除連接</button>
+											<%}%>
+										</div>
+									</div>
+
+
+								</div>
+								<div class="card-body  h-100">
+									<div>
+										<h4>更改密碼</h4>
+									</div>						
+										<div class="item-card">
+											<div class="row flex-row align-items-center">
+												<p class="col-4">舊密碼<small class="text-danger">*</small></p>
+												<p class='col-12'><input type="password" class="form-control" id="old_password" name="old_password"></p>
+											</div>
+											<div class="row align-items-center">
+												<p class='col-4'>新密碼<small class="text-danger">*</small></p>
+												<p class='col-12'><input type="password" class="form-control" id="new_password" name="new_password" placeholder="請輸入3~16字元之間"></p>
+											</div>
+											<div class="row align-items-center">
+												<p class='col-4'>確認密碼<small class="text-danger">*</small></p>
+												<p class='col-12'><input type="password" class="form-control" id="check_password" name="check_password"></p>
+											</div>
+											<div class="d-flex flex-row align-items-center">
+												<p class='col-4'><button type="button" class="btn btn-secondary btn-lg btn-block text-nowrap" id="password_change">修改密碼</button></p>
+											</div>
+										</div>				
+								</div>
+							</div>	
+				</div>
+			</main>		
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="text-center">
+						<p class="mb-0">
+							<a class="text-muted" target="_blank"><strong>農務物聯網智慧系統</strong></a> &copy;
+						</p>
+					</div>
+				</div>
+			</footer>
+		</div>
+
+		<div class="modal fade" id="password_isAuthenticated" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">驗證使用者</h5>
+				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				  <form id='isAuthenticated_form'>
+					<p>輸入密碼以進行驗證</p>
+					<label>密碼<small class="text-danger">*</small></label>
+					<input id="personal_password" type="password" class="form-control">	
+				  </form>
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="isAuthenticated_close">取消</button>
+				  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="isAuthenticated_submit">確定</button>
+				</div>
+			  </div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="LineNotify_popup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">輸入</h5>
+				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				  <form id='update_form'>
+					<p>輸入Line TOKEN</p>
+					<label>TOKEN<small class="text-danger">*</small></label>
+					<input id="update_LineToken" class="form-control" type="text">
+					<br>	
+				  </form>
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="Line_update_close">取消</button>
+				  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="Line_update_submit">確定</button>
+				</div>
+			  </div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="Line_Del" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">是否要解除與Line Notify的連接?</h5>
+				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="Line_delete_close">取消</button>
+				  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="Line_delete_submit">確定</button>
+				</div>
+			  </div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="EmailNotify_popup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">是否要將通知功能連接Email?</h5>
+				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="Email_activate_close">取消</button>
+				  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="Email_activate_submit">確定</button>
+				</div>
+			  </div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="Email_Del" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">是否要解除與Email的連接?</h5>
+				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="Email_deactivate_close">取消</button>
+				  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="Email_deactivate_submit">確定</button>
+				</div>
+			  </div>
+			</div>
+		</div>
+
+
+		<div class="modal fade" id="AlertMsg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">訊息通知</h5>
+				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p id="Alert_msg"></p>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="isAuthenticated_close">確定</button>
+				</div>
+			  </div>
+			</div>
+		</div>
+
+
+	
+
+	<script src="/app.js"></script>
+	<script src="/profile_process.js"></script>
+</body>
+
+</html>

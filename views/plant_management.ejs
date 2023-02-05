@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="../public/img/icons/icon-48x48.png" />
+
+
+
+	<title>農務物聯網智慧系統</title>
+
+
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<script src="/node_modules/jquery/dist/jquery.js"></script>
+	<link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+	<script src="/node_modules/bootstrap/dist/js/bootstrap.esm.js"></script>
+	<link href="/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+	<link href="/app.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar js-sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="/">
+          			<span class="align-middle">農務物聯網智慧系統</span>
+        		</a>
+
+				<ul class="sidebar-nav">
+					<li class="sidebar-header">環境狀態功能</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/">
+              				<i class="align-middle bi bi-bar-chart"></i> <span class="align-middle">環境即時狀態</span>
+						</a>
+					</li>
+					<li class="sidebar-header">辨識功能</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/disease_identify">
+              				<i class="align-middle bi bi-camera-fill"></i> <span class="align-middle">作物疾病檢測</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/quality_identify">
+              				<i class="align-middle bi bi-camera-fill"></i> <span class="align-middle">作物品質檢測</span>
+						</a>
+					</li>
+					<li class="sidebar-header">裝置管理</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/sensor">
+              				<i class="align-middle bi bi-hdd"></i> <span class="align-middle">感測器管理</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/sensor_maintain">
+              				<i class="align-middle  bi bi-keyboard"></i> <span class="align-middle">感測器維修紀錄</span>
+            			</a>
+					</li>
+					<li class="sidebar-header">農地管理</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/field">
+              				<i class="align-middle bi bi-grid"></i> <span class="align-middle">田區管理</span>
+            			</a>
+					</li>
+					<li class="sidebar-item active">
+						<a class="sidebar-link" href="/plant_management">
+              				<i class="align-middle bi bi-clipboard"></i> <span class="align-middle">作物管理</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/grow_record">
+              				<i class="align-middle bi bi-book"></i> <span class="align-middle">種植日誌</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/crops_record">
+              				<i class="align-middle bi bi-box2"></i> <span class="align-middle">收成紀錄</span>
+            			</a>
+					</li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/prescriptionsCustomer">
+                            <i class="align-middle bi bi-card-list"></i> <span class="align-middle">藥單</span>
+                        </a>
+                    </li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle js-sidebar-toggle">
+          			<i class="hamburger align-self-center"></i>
+        		</a>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">						
+						<li class="nav-item dropdown"> 
+							<a class="nav-link dropdown-toggle d-sm-inline-block" href="#" data-bs-toggle="dropdown" id="dropdown_user">
+								<span class="text-dark"><%=user%></span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-end" id="test" aria-labelledby="dropdown_user">
+								<a class="dropdown-item" href='/profile/<%=user%>'><i class="align-middle me-1 bi bi-person"></i>個人資料設定</a>
+								<a class="dropdown-item" href="https://drive.google.com/file/d/1XRZwh8wjgtSz2lVqCPy5fK4IRXG2fqqN/view?usp=share_link">使用說明書</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="/logout">登出</a>
+							</div>
+						</li>
+					</ul>		
+				</div>
+			</nav>
+
+			<main class="content">
+				<div class="row">
+					<div class="card flex-fill">
+						<div class="card-header">
+							<h1 class="card-title mb-0">作物管理</h1>
+						</div>
+						<div class="mb-2">
+							<button class="btn btn-success text-right" id="plant_insert" data-bs-toggle="modal" data-bs-target="#insert_plant">新增作物</button>
+						</div>
+						<div class="col-md-10">
+							<form action="/plant_management" method="GET">
+								<div class="input-group flex-group mb-3 w-75">
+									<input type="text" id="search_bar" name="search" class="form-control">
+									<input id="search_submit" type="submit" value="查詢" class="btn btn-insert btn-primary">
+								</div>
+
+							</form>
+						</div>
+						<div class="table-responsive">
+							<table class="table table-hover my-0 text-center">
+								<thead>
+									<tr class="text-nowrap">
+										<th class="d-xl-table-cell">作物名稱</th>							
+										<th class="d-xl-table-cell text-center">設定</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% for(let i=0;i<data.length;i++){%>
+										<tr class="text-nowrap">
+											<td class="species"><%=data[i].species%></td>
+											<td class="row"><a class="col btn btn-secondary btn-sm btn-space update bi bi-gear-fill" data-bs-toggle="modal" data-bs-target="#update_plant" upd_data_ObjId=<%=data[i]._id%> upd_data_species="<%=data[i].species%>"></a><a class="col btn btn-danger btn-sm btn-space delete bi bi-x-lg" del_data_ObjId=<%=data[i]._id%>></a></td>
+										</tr>
+									<%}%>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="d-flex justify-content-center <%=page_show%>">
+					<div>
+						<ul class="pagination" id="pageination">
+							<li <%if(pageNumber<=1){%>class='page-item disabled'<%}else{%>class='page-item'<%}%>>
+								<a class="page-link" href="/plant_management?page=<%=parseInt(pageNumber)-1%>">前一頁</a>
+							</li>				
+							<% for(let p=1;p<=pages;p++){%>							
+								<li class="page-item">
+									<a class="page-link" href="/plant_management?page=<%=p%>" id="page_num"><%=p%></a>
+								</li>
+							<%}%>
+							<li <%if(pageNumber>=pages){%>class='page-item disabled'<%}else{%>class='page-item'<%}%>>
+								<a class="page-link" href="/plant_management?page=<%=parseInt(pageNumber)+1%>">下一頁</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</main>
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="text-center">
+						<p class="mb-0">
+							<a class="text-muted" target="_blank"><strong>農務物聯網智慧系統</strong></a> &copy;
+						</p>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+
+	<div class="modal fade" id="insert_plant" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel">輸入要種植的作物</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+			  <form id='test'>
+				<div class="form-group mb-2">
+					<label>作物名稱<small class="text-danger">*</small></label>
+					<input id="insert_plantName" type="text" class="form-control">
+				</div>
+			  </form>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="insert_close">取消</button>
+			  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="insert_submit">新增</button>
+			</div>
+		  </div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="update_plant" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header w-100">
+					<div class="row m-0 w-100">
+						<div class="col-md-12 mb-3 d-block d-flex justify-content-between">
+							<h3 class="modal-title" id="exampleModalLabel">設定界面</h3>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="col-md-12">
+							<ul class="nav nav-tabs" id="myTab" role="tablist">
+								<li class="nav-item" role="presentation">
+									<a class="nav-link active" id="show-tab" data-bs-toggle="tab" data-bs-target="#tab-content-show" role="tab" aria-controls="tab-content-show" aria-selected="true">資訊</a>
+								</li>
+								<li class="nav-item" role="presentation">
+									<a class="nav-link" id="setting-tab" data-bs-toggle="tab" data-bs-target="#tab-content-setting" role="tab" aria-controls="tab-content-setting" aria-selected="false">設定</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">
+					<div class="tab-content">
+						<div id="tab-content-show" class="tab-pane fade show active" role="tabpanel" aria-labelledby="show-tab">
+							<div class="form-group mb-2">
+								<label>ID</label>
+								<input id="dialog_ID_show" type="text" class="form-control" readonly>
+							</div>
+							<div class="form-group mb-2">
+								<label>作物名稱</label>							
+								<input id="dialog_plantName_show" type="text" class="form-control" readonly>
+							</div>
+						</div>
+						<div id="tab-content-setting" class="tab-pane fade" role="tabpanel" aria-labelledby="setting-tab">
+							<div>
+								<form id='update_form'>
+									<div class="form-group mb-2">
+										<label>植物名稱<small class="text-danger">*</small></label>
+										<input id="update_plantSpecies" type="text" class="form-control">
+									</div>	
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="update_close">取消</button>
+								<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="update_submit">修改</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="confirm_Alert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel">執行此動作會刪除相關的資料，是否要執行刪除?</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">取消</button>
+			  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="delete_submit">確定</button>
+			</div>
+		  </div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="AlertMsg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel">訊息通知</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p id="Alert_msg"></p>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="isAuthenticated_close">確定</button>
+			</div>
+		  </div>
+		</div>
+	</div>
+
+	<script src="/plant_process.js"></script>
+	<script src="/app.js"></script>
+
+</body>
+
+</html>

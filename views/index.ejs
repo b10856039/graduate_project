@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="../public/img/icons/icon-48x48.png" />
+
+
+	<title>農務物聯網智慧系統</title>
+
+
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<script src="/node_modules/jquery/dist/jquery.js"></script>
+	<link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+	<script src="/node_modules/bootstrap/dist/js/bootstrap.esm.js"></script>
+	<link href="/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+	<script src="/node_modules/socket.io/client-dist/socket.io.js"></script>
+	<link href="/app.css" rel="stylesheet">
+
+</head>
+
+<body>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar js-sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="/">
+          			<span class="align-middle">農務物聯網智慧系統</span>
+        		</a>
+				<ul class="sidebar-nav">
+					<li class="sidebar-header">環境狀態功能</li>
+
+					<li class="sidebar-item  active">
+						<a class="sidebar-link" href="/">
+              				<i class="align-middle bi bi-bar-chart"></i> <span class="align-middle">環境即時狀態</span>
+						</a>
+					</li>
+					<li class="sidebar-header">辨識功能</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/disease_identify">
+              				<i class="align-middle bi bi-camera-fill"></i> <span class="align-middle">作物疾病檢測</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/quality_identify">
+              				<i class="align-middle bi bi-camera-fill"></i> <span class="align-middle">作物品質檢測</span>
+						</a>
+					</li>
+					<li class="sidebar-header">裝置管理</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/sensor">
+              				<i class="align-middle bi bi-hdd"></i> <span class="align-middle">感測器管理</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/sensor_maintain">
+              				<i class="align-middle  bi bi-keyboard"></i> <span class="align-middle">感測器維修紀錄</span>
+            			</a>
+					</li>
+					<li class="sidebar-header">農地管理</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/field">
+              				<i class="align-middle bi bi-grid"></i> <span class="align-middle">田區管理</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/plant_management">
+              				<i class="align-middle bi bi-clipboard"></i> <span class="align-middle">作物管理</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/grow_record">
+              				<i class="align-middle bi bi-book"></i> <span class="align-middle">種植日誌</span>
+            			</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/crops_record">
+              				<i class="align-middle bi bi-box2"></i> <span class="align-middle">收成紀錄</span>
+            			</a>
+					</li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/prescriptionsCustomer">
+                            <i class="align-middle bi bi-card-list"></i> <span class="align-middle">藥單</span>
+                        </a>
+                    </li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle js-sidebar-toggle">
+          			<i class="hamburger align-self-center"></i>
+        		</a>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">						
+						<li class="nav-item dropdown"> 
+							<a class="nav-link dropdown-toggle d-sm-inline-block" href="#" data-bs-toggle="dropdown" id="dropdown_user">
+								<span class="text-dark"><%=user%></span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-end" id="test" aria-labelledby="dropdown_user">
+								<a class="dropdown-item" href='/profile/<%=user%>'><i class="align-middle me-1 bi bi-person"></i>個人資料設定</a>
+								<a class="dropdown-item" href="https://drive.google.com/file/d/1XRZwh8wjgtSz2lVqCPy5fK4IRXG2fqqN/view?usp=share_link">使用說明書</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="/logout">登出</a>
+							</div>
+						</li>
+					</ul>		
+				</div>
+			</nav>
+
+			<main class="content">
+				<div class="row">
+				<% for(let i=0;i<sensor.length;i++){%>
+						<div class="col-12 col-lg-6">
+							<div class="card flex-fill">
+								<div class="card-header">
+									<div class="mb-3 mt-3">
+										<div class="d-flex justify-content-between align-items-center">
+											<div class="align-self-center">
+												<p class="h3 fw-bold"><%=sensor[i].fieldName%></p>
+											</div>
+											<div class="align-self-center">
+												<button class="bi bi-gear-fill btn btn-secondary" data-bs-toggle="modal" data-bs-target="#TimeChangeChartPopup_<%=i%>"></button>
+											</div>
+										</div>
+									</div>	
+									<hr>	
+									<div class="mb-3 mt-3">
+										<p class="h3 fw-bold text-center"><%=sensor[i].sensorID%></p>
+									</div>
+								</div>
+								<div class="card-body">
+									<div>
+										<p id="immediate_NoData_<%=i%>"></p>
+									</div>
+									<div>
+										<div id="temp-chart_<%=i%>" style="width:100%; height:400px;"></div>
+									</div>
+								</div>
+							</div>	
+						</div>				
+				<%}%>
+				</div>	
+			</main>
+
+			<% for(let i=0;i<sensor.length;i++){%>
+				<div class="row">
+					<div class="modal fade" id="TimeChangeChartPopup_<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-lg modal-dialog-centered">
+						  <div class="modal-content">
+							<div class="modal-header">
+								  <h2 class="modal-title" id="TimeChangeChartPopup_ModalLabel_<%=i%>"></h2>
+							  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="">
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="align-self-center">
+											<p class="h5 fw-bold"><%=sensor[i].fieldName%></p>
+										</div>
+									</div>
+								</div>	
+								<hr>	
+								<div class="">
+									<p class="h5 fw-bold text-center"><%=sensor[i].sensorID%></p>
+								</div>
+								<div>
+									<p id="NoData_<%=i%>"></p>
+									<div id="API_KEY_<%=i%>" class='d-none'><%=sensor[i].API_KEY%></div>
+									<div id="sensorID_<%=i%>" class='d-none'><%=sensor[i].sensorID%></div>
+								</div>
+								<div id="TimeChangeChart_<%=i%>" style="width:100%; height:400px;"></div>
+							</div>
+							<div class="modal-footer justify-content-center">
+								<div class="change_time_t_<%=i%> text-center">1個月</div>
+								<input id="change_time_<%=i%>" type="range" class="form-range" min="1" max="12" step="1" value="1">
+								<button type="button" class="btn btn-primary" id="TimeSet1_<%=i%>">確定</button>
+							</div>
+						  </div>
+						</div>
+					</div>
+				</div>
+			<%}%>
+
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="text-center">
+						<p class="mb-0">
+							<a class="text-muted" target="_blank"><strong>農務物聯網智慧系統</strong></a> &copy;
+						</p>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+	<script>							
+		const sensorData= '<%- JSON.stringify(sensor) %>';
+		const dateFindData='<%-JSON.stringify(dateFindData)%>'
+
+   	</script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="/index_process.js"></script>
+
+	<script src="/app.js"></script>
+</body>
+
+</html>
